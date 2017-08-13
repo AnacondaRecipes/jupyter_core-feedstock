@@ -33,12 +33,18 @@ test:
   imports:
     - jupyter_core
     - jupyter_core.utils
+    - jupyter_core.tests
 
 about:
   home: http://jupyter.org
   license: BSD 3-clause
   license_file: COPYING.md
   summary: Core common functionality of Jupyter projects.
+  description: |
+    This package defines the core common functionality of Jupyter projects.
+  doc_url: http://jupyter-core.readthedocs.org/
+  doc_source_url: https://github.com/jupyter/jupyter_core/blob/master/docs/index.rst
+  dev_url: https://github.com/jupyter/jupyter_core
 
 extra:
   recipe-maintainers:
