@@ -1,4 +1,4 @@
-{% set version = "4.8.1" %}
+{% set version = "4.9.0" %}
 
 package:
   name: jupyter_core
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/j/jupyter_core/jupyter_core-{{ version }}.tar.gz
-  sha256: ef210dcb4fca04de07f2ead4adf408776aca94d17151d6f750ad6ded0b91ea16
+  sha256: adfc754536b34a1cd987c7991a24536d95f4a791e9761e9327fa919fc8d424f3
 
 build:
   number: 0
