@@ -1,4 +1,5 @@
 {% set version = "4.9.1" %}
+{% set sha256 = "dce8a7499da5a53ae3afd5a9f4b02e5df1d57250cf48f3ad79da23b4778cd6fa" %}
 
 package:
   name: jupyter_core
@@ -6,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/j/jupyter_core/jupyter_core-{{ version }}.tar.gz
-  sha256: dce8a7499da5a53ae3afd5a9f4b02e5df1d57250cf48f3ad79da23b4778cd6fa
+  sha256: {{ sha256 }}
 
 build:
   number: 0
@@ -21,19 +22,17 @@ requirements:
     - pip
     - python
     - setuptools_scm
+    - setuptools
+    - wheel
   run:
     - python
     - pywin32 >=1.0  # [win]
     - traitlets
 
-{% set skip_all = "not test_not_on_path and not test_path_priority" %}
-{% set skip_win_py2k = " and not test_migrate_config" %}
-{% set skip = skip_all %}  # [not(win and py2k)]
-{% set skip = skip_all ~ skip_win_py2k %}  # [win and py2k]
+{% set skip = "not test_not_on_path and not test_path_priority" %}
 test:
   requires:
     # - ipykernel
-    - mock  # [py2k]
     - nose
     - pytest
     - pip
@@ -41,10 +40,13 @@ test:
     - jupyter -h
     - jupyter-migrate -h
     - jupyter-troubleshoot --help
-    # - python -m pytest --pyargs jupyter_core -k "{{ skip }}"
+    - python -m pytest --pyargs jupyter_core -k "{{ skip }}"
     - pip check
   imports:
     - jupyter_core
+    - jupyter_core.utils
+    - jupyter_core.tests
+
 
 about:
   home: https://jupyter.org
