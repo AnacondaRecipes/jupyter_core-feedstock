@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  # triger 1
+  skip: True  # [py<36]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
   entry_points:
     - jupyter = jupyter_core.command:main
@@ -30,19 +30,20 @@ requirements:
     - pywin32 >=1.0  # [win]
     - traitlets
 
-{% set skip = "not test_not_on_path and not test_path_priority" %}
+{% set skip = ["test_not_on_path", "test_path_priority"] %}
+# linux shebang lines have a length limit longer than the placeholder test prefix
+{% set skip = skip + ["test_argv0"] %}  # [linux]
+{% set skip = '-k "not (' + (skip | join(' or ')) + ')"' %}
 test:
   requires:
-    # - ipykernel
-    - nose
     - pytest
     - pip
   commands:
+    - pip check
     - jupyter -h
     - jupyter-migrate -h
     - jupyter-troubleshoot --help
-    - python -m pytest --pyargs jupyter_core -k "{{ skip }}"
-    - pip check
+    - python -m pytest -vv --pyargs jupyter_core {{ skip }}
   imports:
     - jupyter_core
     - jupyter_core.utils
