@@ -32,7 +32,8 @@ requirements:
 
 {% set skip = ["test_not_on_path", "test_path_priority"] %}
 # linux shebang lines have a length limit longer than the placeholder test prefix
-{% set skip = skip + ["test_argv0"] %}  # [linux]
+{% set skip = skip + ["test_argv0"] %}  # [linux or (win and py==310)]
+{% set skip = skip + ["tesTESTS"] %}  # [win and py==310]
 {% set skip = '-k "not (' + (skip | join(' or ')) + ')"' %}
 test:
   requires:
