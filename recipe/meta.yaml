@@ -1,5 +1,5 @@
-{% set version = "4.9.2" %}
-{% set sha256 = "d69baeb9ffb128b8cd2657fcf2703f89c769d1673c851812119e3a2a0e93ad9a" %}
+{% set version = "4.10.0" %}
+{% set sha256 = "a6de44b16b7b31d7271130c71a6792c4040f077011961138afed5e5e73181aec" %}
 
 package:
   name: jupyter_core
@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [py<36]
+  skip: True  # [py<37]
   script: {{ PYTHON }} -m pip install . --no-deps -vv
   entry_points:
     - jupyter = jupyter_core.command:main
@@ -22,8 +22,7 @@ requirements:
   host:
     - pip
     - python
-    - setuptools_scm
-    - setuptools
+    - setuptools >=60.0
     - wheel
   run:
     - python
@@ -49,7 +48,6 @@ test:
     - jupyter_core
     - jupyter_core.utils
     - jupyter_core.tests
-
 
 about:
   home: https://jupyter.org
