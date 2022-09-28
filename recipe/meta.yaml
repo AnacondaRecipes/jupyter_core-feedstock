@@ -1,5 +1,5 @@
-{% set version = "4.10.0" %}
-{% set sha256 = "a6de44b16b7b31d7271130c71a6792c4040f077011961138afed5e5e73181aec" %}
+{% set version = "4.11.1" %}
+{% set sha256 = "2e5f244d44894c4154d06aeae3419dd7f1b0ef4494dc5584929b398c61cfd314" %}
 
 package:
   name: jupyter_core
@@ -19,11 +19,14 @@ build:
     - jupyter-troubleshoot = jupyter_core.troubleshoot:main
 
 requirements:
+  build:
+    - python
   host:
     - pip
     - python
     - setuptools >=60.0
     - wheel
+    - hatchling >=1.4
   run:
     - python
     - pywin32 >=1.0  # [win]
