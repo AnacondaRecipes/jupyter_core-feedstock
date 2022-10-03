@@ -19,13 +19,9 @@ build:
     - jupyter-troubleshoot = jupyter_core.troubleshoot:main
 
 requirements:
-  build:
-    - python
   host:
     - pip
     - python
-    - setuptools >=60.0
-    - wheel
     - hatchling >=1.4
   run:
     - python
