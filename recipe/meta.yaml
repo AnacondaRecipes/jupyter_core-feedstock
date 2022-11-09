@@ -1,13 +1,13 @@
+{% set name = "jupyter_core" %}
 {% set version = "4.11.2" %}
-{% set sha256 = "c2909b9bc7dca75560a6c5ae78c34fd305ede31cd864da3c0d0bb2ed89aa9337" %}
 
 package:
-  name: jupyter_core
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/j/jupyter_core/jupyter_core-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: c2909b9bc7dca75560a6c5ae78c34fd305ede31cd864da3c0d0bb2ed89aa9337
 
 build:
   number: 0
@@ -23,6 +23,7 @@ requirements:
     - pip
     - python
     - hatchling >=1.4
+    - wheel
   run:
     - python
     - pywin32 >=1.0  # [win]
@@ -53,7 +54,11 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: COPYING.md
+  license_url: https://github.com/jupyter/jupyter_core/blob/main/COPYING.md
   summary: Core common functionality of Jupyter projects.
+  description: |
+    Jupyter core package. A base package on which Jupyter projects rely.
+    This package contains base application classes and configuration inherited by other projects.
   dev_url: https://github.com/jupyter/jupyter_core
   doc_url: https://jupyter-core.readthedocs.io
   doc_source_url: https://github.com/jupyter/jupyter_core/tree/master/docs
