@@ -39,6 +39,7 @@ test:
   requires:
     - pytest
     - pip
+    - platformdirs
   commands:
     - pip check
     - jupyter -h
