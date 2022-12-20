@@ -1,5 +1,5 @@
 {% set name = "jupyter_core" %}
-{% set version = "4.11.2" %}
+{% set version = "5.0.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: c2909b9bc7dca75560a6c5ae78c34fd305ede31cd864da3c0d0bb2ed89aa9337
+  sha256: 4ed68b7c606197c7e344a24b7195eef57898157075a69655a886074b6beb7043 
 
 build:
   number: 0
