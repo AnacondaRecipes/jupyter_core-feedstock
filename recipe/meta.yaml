@@ -28,8 +28,8 @@ requirements:
   run:
     - python
     - pywin32 >=1.0  # [win]
-    - traitlets
-    - platformdirs
+    - traitlets >=5.3
+    - platformdirs >=2.5
 
 {% set skip = ["test_not_on_path", "test_path_priority"] %}
 # linux shebang lines have a length limit longer than the placeholder test prefix
