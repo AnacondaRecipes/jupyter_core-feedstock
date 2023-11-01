@@ -1,18 +1,18 @@
 {% set name = "jupyter_core" %}
-{% set version = "5.3.0" %}
+{% set version = "5.5.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 6db75be0c83edbf1b7c9f91ec266a9a24ef945da630f3120e1a0046dc13713fc
+  url: https://github.com/jupyter/jupyter_core/releases/download/v{{ version }}/jupyter_core-{{ version }}.tar.gz
+  sha256: 880b86053bf298a8724994f95e99b99130659022a4f7f45f563084b6223861d3
 
 build:
   number: 0
   skip: true  # [py<38]
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
     - jupyter = jupyter_core.command:main
     - jupyter-migrate = jupyter_core.migrate:main
@@ -23,8 +23,6 @@ requirements:
     - pip
     - python
     - hatchling
-    - setuptools
-    - wheel
   run:
     - python
     - pywin32 >=300  # [win]
@@ -32,14 +30,13 @@ requirements:
     - platformdirs >=2.5
 
 {% set skip = ["test_not_on_path", "test_path_priority"] %}
-# The following 2 tests were poorly setup following the breaking change in platformdirs 3.0.0. 
-# Can activate these tests once we have platformdir >3.0.0  
-{% set skip = skip + ["test_config_dir", "test_runtime_dir"] %}  # [osx]
 # linux shebang lines have a length limit longer than the placeholder test prefix
 {% set skip = skip + ["test_argv0"] %}  # [linux or (win and py==310)]
 {% set skip = skip + ["tesTESTS"] %}  # [win and py==310]
 {% set skip = '-k "not (' + (skip | join(' or ')) + ')"' %}
 test:
+  source_files:
+    - tests
   requires:
     - pytest
     - pip
@@ -48,11 +45,10 @@ test:
     - jupyter -h
     - jupyter-migrate -h
     - jupyter-troubleshoot --help
-    - python -m pytest -vv --pyargs jupyter_core {{ skip }}
+    - pytest -vv {{ skip }}
   imports:
     - jupyter_core
     - jupyter_core.utils
-    - jupyter_core.tests
 
 about:
   home: https://jupyter.org
