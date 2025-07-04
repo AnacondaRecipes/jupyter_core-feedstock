@@ -1,6 +1,5 @@
 {% set name = "jupyter_core" %}
 {% set version = "5.8.1" %}
-{% set skip = "'-k "not (' + (skip | join(' or ')) + ')"'" %}
 
 package:
   name: {{ name|lower }}
@@ -30,8 +29,10 @@ requirements:
     - traitlets >=5.3
     - platformdirs >=2.5
 
+{% set skip = ["test_not_on_path", "test_path_priority"] %}
 # linux shebang lines have a length limit longer than the placeholder test prefix
-- "{% set skip = skip + [\"test_argv0\"] %}  # [linux]"  # [linux]
+{% set skip = skip + ["test_argv0"] %}  # [linux]
+{% set skip = '-k "not (' + (skip | join(' or ')) + ')"' %}
 
 test:
   source_files:
