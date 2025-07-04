@@ -39,7 +39,7 @@ test:
     - tests
     - pyproject.toml
   requires:
-    - pytest <8
+    - pytest <9
     - ipykernel
     - pytest-timeout
     - pip
