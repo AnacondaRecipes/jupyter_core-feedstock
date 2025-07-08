@@ -1,13 +1,13 @@
 {% set name = "jupyter_core" %}
-{% set version = "5.7.2" %}
+{% set version = "5.8.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: aa5f8d32bbf6b431ac830496da7392035d6f61b4f54872f15c4bd2a9c3f536d9
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 0a5f9706f70e64786b75acba995988915ebd4601c8a52e534a40b51c95f59941
 
 build:
   number: 0
@@ -33,12 +33,13 @@ requirements:
 # linux shebang lines have a length limit longer than the placeholder test prefix
 {% set skip = skip + ["test_argv0"] %}  # [linux]
 {% set skip = '-k "not (' + (skip | join(' or ')) + ')"' %}
+
 test:
   source_files:
     - tests
     - pyproject.toml
   requires:
-    - pytest <8
+    - pytest <9
     - ipykernel
     - pytest-timeout
     - pip
