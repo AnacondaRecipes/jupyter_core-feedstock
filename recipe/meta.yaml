@@ -1,11 +1,5 @@
 {% set name = "jupyter_core" %}
 {% set version = "5.9.1" %}
-{% set skip = [
-  "test_not_on_path",
-  "test_path_priority"
-] %}
-{% set skip = 'skip + ["test_argv0"]' %}  # [linux]
-{% set skip = '-k "not (' + (skip | join(' or ')) + ')"' %}
 
 package:
   name: {{ name|lower }}
@@ -36,6 +30,11 @@ requirements:
     - platformdirs >=2.5
 
 # linux shebang lines have a length limit longer than the placeholder test prefix
+{% set skip_tests = [
+  "--deselect=test_not_on_path",
+  "--deselect=test_path_priority"
+] %}
+
 test:
   source_files:
     - tests
@@ -50,7 +49,7 @@ test:
     - jupyter -h
     - jupyter-migrate -h
     - jupyter-troubleshoot --help
-    - pytest -vv {{ skip }}
+    - pytest -vv #{{ skip_tests | join(" ") }}
   imports:
     - jupyter_core
     - jupyter_core.utils
