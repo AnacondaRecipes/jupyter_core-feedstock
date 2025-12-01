@@ -31,8 +31,9 @@ requirements:
 
 # linux shebang lines have a length limit longer than the placeholder test prefix
 {% set skip_tests = [
-  "--deselect=test_not_on_path",
-  "--deselect=test_path_priority"
+  "--deselect=tests/test_command.py::test_not_on_path",
+  "--deselect=tests/test_command.py::test_path_priority",
+  "--deselect=tests/test_command.py::test_argv0"
 ] %}
 
 test:
@@ -49,7 +50,8 @@ test:
     - jupyter -h
     - jupyter-migrate -h
     - jupyter-troubleshoot --help
-    - pytest -vv #{{ skip_tests | join(" ") }}
+    - pytest -vv {{ skip_tests | join(" ") }} # [linux]
+    - pytest -vv # [not linux]
   imports:
     - jupyter_core
     - jupyter_core.utils
